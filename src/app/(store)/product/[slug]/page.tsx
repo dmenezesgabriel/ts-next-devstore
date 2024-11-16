@@ -1,10 +1,14 @@
-import { api } from "@/data/api";
-import { Product } from "@/data/product";
+import { api } from "../../../../data/api";
+import { Product } from "../../../../data/product";
 import { Metadata } from "next";
 import Image from "next/image";
 
+// Next.js v14
+// interface ProductProps {
+//   params: { slug: string };
+// }
 interface ProductProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 async function getProduct(slug: string): Promise<Product> {
@@ -31,6 +35,16 @@ export async function generateMetadata({
   return {
     title: product.title,
   };
+}
+
+export async function generateStaticParams() {
+  // Since our api is tight coupled to the frontend on this project, it must be running when building it
+  const response = await api("/api/products/featured");
+  const products: Product[] = await response.json();
+
+  return products.map((product) => {
+    return { slug: product.slug };
+  });
 }
 
 export default async function ProductPage({ params }: ProductProps) {

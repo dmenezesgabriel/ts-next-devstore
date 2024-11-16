@@ -3,7 +3,7 @@ import { z } from "zod";
 
 export async function GET(
   _: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> } // { params: { slug: string } } next.js v14
 ) {
   await new Promise((resolve) => setTimeout(resolve, 1000)); // Delay to simulate real api
 
