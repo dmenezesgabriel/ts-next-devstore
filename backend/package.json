@@ -1,8 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "dist/serverless.js",
-  "type": "module",
+  "main": "dist/serverless.js ",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsup src",

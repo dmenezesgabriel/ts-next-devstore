@@ -1,8 +1,10 @@
 {
     "version": 2,
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist",
     "builds": [
         {
-            "src": "dist/serverless.js",
+            "src": "dist/**/*",
             "use": "@vercel/node",
             "config": {
                 "includeFiles": [
@@ -11,10 +13,10 @@
             }
         }
     ],
-    "rewrites": [
+    "routes": [
         {
-            "source": "/(.*)",
-            "destination": "dist/serverless.js"
+            "src": "/(.*)",
+            "dest": "dist/serverless.js"
         }
     ]
 }
