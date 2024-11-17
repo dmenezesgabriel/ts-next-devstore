@@ -21,5 +21,6 @@ npm i -g vercel
 
 ```sh
 cd backend && /
-vercel
+npm run build && \  # must build before each deployment
+vercel  # vercel --prod to promote to production
 ```

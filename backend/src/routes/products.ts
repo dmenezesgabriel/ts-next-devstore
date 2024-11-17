@@ -15,13 +15,11 @@ export async function productRoutes(app: FastifyInstance) {
     return featuredProducts;
   });
 
-  app.get("/:id", async (request: FastifyRequest, reply: FastifyReply) => {
-    const paramsSchema = z.object({ id: z.string() });
-    const { id } = paramsSchema.parse(request.params);
+  app.get("/:slug", async (request: FastifyRequest, reply: FastifyReply) => {
+    const paramsSchema = z.object({ slug: z.string() });
+    const { slug } = paramsSchema.parse(request.params);
 
-    const product = data.products.find(
-      (product) => product.id.toString() === id,
-    );
+    const product = data.products.find((product) => product.slug === slug);
     if (!product) {
       reply.status(400).send({ message: "Product not found" });
     } else {

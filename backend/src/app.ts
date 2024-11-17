@@ -7,4 +7,9 @@ app.get("/", async () => {
   return { message: "Hello, World!" };
 });
 
-app.register(productRoutes, { prefix: "products" });
+app.register(
+  async (app) => {
+    app.register(productRoutes, { prefix: "products" });
+  },
+  { prefix: "api" },
+);
