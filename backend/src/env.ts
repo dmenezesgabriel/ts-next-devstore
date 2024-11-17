@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === "test") {
 
 const envSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("production"),
-  PORT: z.coerce.number().default(3333),
+  PORT: z.coerce.number().default(3000),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
