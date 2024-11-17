@@ -1,6 +1,6 @@
 # Next.js Devstore
 
-_Rocketseat project_
+_Rocketseat project (slight modified with frontend and backend segregation)_
 
 ## Cache & Memoization
 
