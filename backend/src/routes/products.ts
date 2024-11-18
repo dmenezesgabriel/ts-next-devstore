@@ -26,4 +26,29 @@ export async function productRoutes(app: FastifyInstance) {
       return product;
     }
   });
+
+  app.get("/search", async (request: FastifyRequest, reply: FastifyReply) => {
+    const querySchema = z.object({
+      q: z.string().optional(),
+    });
+
+    const { q } = querySchema.parse(request.query);
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    if (!q) {
+      reply.status(400).send({ message: "Search query is required" });
+      return;
+    }
+
+    const products = data.products.filter((product) =>
+      product.title.toLowerCase().includes(q.toLowerCase()),
+    );
+
+    if (products.length === 0) {
+      reply.status(404).send({ message: "No products found" });
+    } else {
+      return products;
+    }
+  });
 }
