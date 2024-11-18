@@ -3,7 +3,7 @@ name: Run E2E tests
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   cypress-run:
