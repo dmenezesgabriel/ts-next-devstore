@@ -1,0 +1,46 @@
+name: Run E2E tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: frontend
+
+      - name: Build Next.js application
+        run: npm run build
+        working-directory: frontend
+
+      - name: Start Next.js application
+        run: npm start &
+        working-directory: frontend
+
+      - name: Wait for application to be ready
+        run: |
+          npx wait-on http://localhost:3000
+          echo "Application is ready!"
+
+      - name: Cypress Run
+        uses: cypress-io/github-action@v6
+        env:
+          NEXT_PUBLIC_API_BASE_URL: "https://devstore-backend-rho.vercel.app"
+          APP_URL: "http://localhost:3000"
+        with:
+          browser: chrome
+          headless: true
+        working-directory: frontend
