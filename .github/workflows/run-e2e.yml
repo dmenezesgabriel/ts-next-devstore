@@ -37,10 +37,10 @@ jobs:
 
       - name: Cypress Run
         uses: cypress-io/github-action@v6
+        working-directory: frontend
         env:
           NEXT_PUBLIC_API_BASE_URL: "https://devstore-backend-rho.vercel.app"
           APP_URL: "http://localhost:3000"
         with:
           browser: chrome
           headless: true
-        working-directory: frontend
